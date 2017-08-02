@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    .menu {
+      width: 200px;
+      height: 240px;
+      border: 1px solid #000;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      transition: opacity 500ms;
+    }
+    .menu span {
+      width: 100%;
+      display: inline-block;
+      text-align:left;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      background-color: #2b2b2b;
+      color:#fff;
+      font-size: 14px;
+    }
+    .menu span + span {
+      border-top: 1px solid #232323;
+    }
+     .menu span:hover{
+      background-color: #ccc;
+      color: #000;
+     }
+  </style>
+</head>
+<body>
+  <div class="menu">
+    <span>查看</span>
+    <span>排列方式</span>
+    <span>刷新</span>
+    <span>新建文件夹</span>
+    <span>撤销重命名</span>
+    <span>图形属性</span>
+  </div>
+  <script>
+    /**
+     * 鼠标右键菜单事件： contextmenu
+     */
+    
+    var menu = document.querySelector('.menu');
+    
+    document.oncontextmenu = function (e){
+      e.preventDefault();
+     
+      // 拿到鼠标点击时候的x、y坐标
+      var x = e.pageX, y = e.pageY, l, t;
+      
+      // 让菜单显示出来
+      menu.style.opacity = 1;
+      
+      // menu.style.left = x + 'px';
+      // menu.style.top = y + 'px';
+      
+      // 如果 屏幕的宽度 - 菜单的宽度 比 鼠标的点击的x坐标 小
+      // 说明要超出屏幕了
+      if(x > window.innerWidth - menu.offsetWidth){
+        // 如果要超出了就让菜单显示在最大的left值的位置
+        l = window.innerWidth - menu.offsetWidth;
+      }else{
+        l = x;
+      }
+
+      if(y > window.innerHeight - menu.offsetHeight){
+        t = window.innerHeight - menu.offsetHeight;
+        console.log(t);
+      }else{
+        t = y;
+      }
+      
+      menu.style.left = l + 'px';
+      menu.style.top = t + 'px';
+      
+    };
+    menu.addEventListener('click',function(e){
+       e.stopPropagation();
+    })
+
+    document.onclick = function (){
+
+      menu.style.opacity = 0;
+    }
+  
+  </script>
+</body>
+</html>
